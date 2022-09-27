@@ -1,0 +1,42 @@
+{
+    "name": "yieldstudio/grumphp-laravel-pint",
+    "description": "A Laravel Pint task for GrumPHP.",
+    "type": "plugin",
+    "keywords": [
+        "yieldstudio",
+        "laravel",
+        "grumphp",
+        "quality",
+        "phpcsfixer",
+        "pint",
+        "linter"
+    ],
+    "homepage": "https://github.com/YieldStudio/grumphp-laravel-pint",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "James Hemery",
+            "email": "james@yieldstudio.fr",
+            "homepage": "https://yieldstudio.fr",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.0",
+        "phpro/grumphp": "^1.13"
+    },
+    "autoload": {
+        "psr-4": {
+            "YieldStudio\\GrumPHPLaravelPint\\": "src"
+        }
+    },
+    "scripts": {
+        "format": "vendor/bin/php-cs-fixer fix --allow-risky=yes"
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {}
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
