@@ -16,6 +16,8 @@ In your grumphp.yml :
 
 ```yaml
 grumphp:
+  extensions:
+    - YieldStudio\GrumPHPLaravelPint\ExtensionLoader
   tasks:
     laravel_pint:
       config: pint.json
