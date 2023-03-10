@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace YieldStudio\GrumPHPLaravelPint;
 
+use GrumPHP\Fixer\Provider\FixableProcessResultProvider;
 use GrumPHP\Runner\TaskResult;
 use GrumPHP\Runner\TaskResultInterface;
 use GrumPHP\Task\AbstractExternalTask;
@@ -25,10 +26,12 @@ class LaravelPintTask extends AbstractExternalTask
         $resolver = new OptionsResolver();
         $resolver->setDefaults([
             'config' => null,
+            'preset' => null,
             'triggered_by' => ['php'],
         ]);
 
         $resolver->addAllowedTypes('config', ['null', 'string']);
+        $resolver->addAllowedTypes('preset', ['null', 'string']);
         $resolver->addAllowedTypes('triggered_by', ['array']);
 
         return $resolver;
@@ -39,32 +42,9 @@ class LaravelPintTask extends AbstractExternalTask
         return $context instanceof GitPreCommitContext || $context instanceof RunContext;
     }
 
-    public function runProcess(Process $process, ContextInterface $context): ?TaskResult
-    {
-        $process->run();
-
-        if (! $process->isSuccessful()) {
-            return TaskResult::createFailed($this, $context, $this->formatter->format($process));
-        }
-
-        return null;
-    }
-
     public function run(ContextInterface $context): TaskResultInterface
     {
         $config = $this->getConfig()->getOptions();
-        if (! ($context instanceof GitPreCommitContext)) {
-            $arguments = $this->processBuilder->createArgumentsForCommand('pint');
-            $arguments->addOptionalArgument('--config=%s', $config['config']);
-
-            $result = $this->runProcess($this->processBuilder->buildProcess($arguments), $context);
-            if ($result) {
-                return $result;
-            }
-
-            return TaskResult::createPassed($this, $context);
-        }
-
         $files = $context->getFiles()->extensions($config['triggered_by']);
         if (0 === \count($files)) {
             return TaskResult::createSkipped($this, $context);
@@ -72,24 +52,23 @@ class LaravelPintTask extends AbstractExternalTask
 
         $arguments = $this->processBuilder->createArgumentsForCommand('pint');
         $arguments->addOptionalArgument('--config=%s', $config['config']);
+        $arguments->addOptionalArgument('--preset=%s', $config['preset']);
+        $arguments->add('--test');
+        $arguments->add('-v');
 
         $arguments->addFiles($files);
         $process = $this->processBuilder->buildProcess($arguments);
 
-        $result = $this->runProcess($process, $context);
-        if ($result) {
-            return $result;
-        }
+        $process->run();
 
-        $gitArgs = $this->processBuilder->createArgumentsForCommand('git');
-        $gitArgs->add('add');
-        $gitArgs->addFiles($files);
-
-        $gitProcess = $this->processBuilder->buildProcess($gitArgs);
-        $gitProcess->run();
-
-        if (! $gitProcess->isSuccessful()) {
-            return TaskResult::createFailed($this, $context, $this->formatter->format($process));
+        if (!$process->isSuccessful()) {
+            return FixableProcessResultProvider::provide(
+                TaskResult::createFailed($this, $context, $this->formatter->format($process)),
+                function () use ($arguments): Process {
+                    $arguments->removeElement('--test');
+                    return $this->processBuilder->buildProcess($arguments);
+                }
+            );
         }
 
         return TaskResult::createPassed($this, $context);
