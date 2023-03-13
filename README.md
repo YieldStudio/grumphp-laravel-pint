@@ -20,7 +20,14 @@ grumphp:
     - YieldStudio\GrumPHPLaravelPint\ExtensionLoader
   tasks:
     laravel_pint:
+      # These are all optional and have been set to sensible defaults.
       config: pint.json
+      preset: laravel
+      auto_git_stage: false
+      triggered_by:
+        - php
+      ignore_patterns:
+        - /^a-patten-to-ignore-files-or-folders\/.*/
 ```
 
 ## Changelog
