@@ -3,7 +3,7 @@
 A [Laravel Pint](https://laravel.com/docs/9.x/pint) task for [GrumPHP](https://github.com/phpro/grumphp).
 
 [![Latest Version](https://img.shields.io/github/release/yieldstudio/grumphp-laravel-pint?style=flat-square)](https://github.com/yieldstudio/grumphp-laravel-pint/releases)
-[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/yieldstudio/grumphp-laravel-pint/tests.yml?branch=main&style=flat-square)](https://github.com/yieldstudio/grumphp-laravel-pint/actions/workflows/tests.yml)
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/yieldstudio/grumphp-laravel-pint/styling.yml?branch=main&style=flat-square)](https://github.com/yieldstudio/grumphp-laravel-pint/actions/workflows/tests.yml)
 [![Total Downloads](https://img.shields.io/packagist/dt/yieldstudio/grumphp-laravel-pint?style=flat-square)](https://packagist.org/packages/yieldstudio/grumphp-laravel-pint)
 
 ## Installation
