@@ -36,6 +36,23 @@ grumphp:
         - /^a-patten-to-ignore-files-or-folders\/.*/
 ```
 
+**Auto fix**
+
+When auto_fix is not enabled, GrumPHP runs Pint in dry mode and then asks if you want to apply patches automatically.
+
+By default, `auto_fix` is enabled only in a pre_commit context.
+
+Possible values are `true`, `false`, `pre_commit`, `run`.
+
+**Auto stage**
+
+Allows you to automatically stage (`git add`) files affected by Pint with GrumPHP.
+
+By default, `auto_stage` is enabled only in a pre_commit context.
+
+This option only works when `auto_fix` is enabled for the runtime context.
+
+
 ## Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
