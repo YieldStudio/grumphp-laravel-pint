@@ -20,8 +20,38 @@ grumphp:
     - YieldStudio\GrumPHPLaravelPint\ExtensionLoader
   tasks:
     laravel_pint:
+      # These are all optional and have been set to sensible defaults.
       config: pint.json
+      preset: laravel
+      # Auto fix Laravel Pint issues
+      # Can be false, true, 'run' or 'pre_commit' (default)
+      auto_fix: 'pre_commit' 
+      # Auto stage files after auto fix
+      # Can be false, true, 'run' or 'pre_commit' (default)
+      # Works only if the task has been auto fixed (Without GrumPHP having to ask for it)
+      auto_stage: 'pre_commit'
+      triggered_by:
+        - php
+      ignore_patterns:
+        - /^a-patten-to-ignore-files-or-folders\/.*/
 ```
+
+**Auto fix**
+
+When auto_fix is not enabled, GrumPHP runs Pint in dry mode and then asks if you want to apply patches automatically.
+
+By default, `auto_fix` is enabled only in a pre_commit context.
+
+Possible values are `true`, `false`, `pre_commit`, `run`.
+
+**Auto stage**
+
+Allows you to automatically stage (`git add`) files affected by Pint with GrumPHP.
+
+By default, `auto_stage` is enabled only in a pre_commit context.
+
+This option only works when `auto_fix` is enabled for the runtime context.
+
 
 ## Changelog
 
