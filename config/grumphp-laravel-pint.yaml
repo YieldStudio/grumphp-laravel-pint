@@ -1,0 +1,8 @@
+services:
+    YieldStudio\GrumPHPLaravelPint\LaravelPintTask:
+        class: YieldStudio\GrumPHPLaravelPint\LaravelPintTask
+        arguments:
+          - '@process_builder'
+          - '@formatter.raw_process'
+        tags:
+          - {name: grumphp.task, task: laravel_pint}
