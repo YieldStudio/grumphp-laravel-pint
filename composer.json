@@ -23,7 +23,7 @@
     ],
     "require": {
         "php": "^8.0",
-        "phpro/grumphp": "^1.13"
+        "phpro/grumphp": "^2.0"
     },
     "autoload": {
         "psr-4": {
@@ -35,7 +35,9 @@
     },
     "config": {
         "sort-packages": true,
-        "allow-plugins": {}
+        "allow-plugins": {
+            "phpro/grumphp": true
+        }
     },
     "minimum-stability": "stable",
     "prefer-stable": true,
