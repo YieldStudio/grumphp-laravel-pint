@@ -10,6 +10,10 @@ A [Laravel Pint](https://laravel.com/docs/9.x/pint) task for [GrumPHP](https://g
 
 	composer require yieldstudio/grumphp-laravel-pint
 
+For GrumPHP v1 : 
+
+    composer require yieldstudio/grumphp-laravel-pint:^0.0.2
+
 ## Usage
 
 In your grumphp.yml : 
