@@ -8,11 +8,11 @@ A [Laravel Pint](https://laravel.com/docs/9.x/pint) task for [GrumPHP](https://g
 
 ## Installation
 
-	composer require yieldstudio/grumphp-laravel-pint
+	composer require --dev yieldstudio/grumphp-laravel-pint
 
 For GrumPHP v1 : 
 
-    composer require yieldstudio/grumphp-laravel-pint:^0.0.2
+    composer require --dev yieldstudio/grumphp-laravel-pint:^0.0.2
 
 ## Usage
 
