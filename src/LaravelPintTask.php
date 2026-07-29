@@ -37,6 +37,7 @@ class LaravelPintTask extends AbstractExternalTask
             'preset' => null,
             'auto_fix' => 'pre_commit',
             'auto_stage' => 'pre_commit',
+            'blade' => false,
             'triggered_by' => ['php'],
             'ignore_patterns' => [],
         ]);
@@ -45,6 +46,7 @@ class LaravelPintTask extends AbstractExternalTask
         $resolver->addAllowedTypes('preset', ['null', 'string']);
         $resolver->addAllowedValues('auto_fix', [true, false, 'pre_commit', 'run']);
         $resolver->addAllowedValues('auto_stage', [true, false, 'pre_commit', 'run']);
+        $resolver->addAllowedValues('blade', [true, false]);
         $resolver->addAllowedTypes('triggered_by', ['array']);
         $resolver->addAllowedTypes('ignore_patterns', ['array']);
 
@@ -72,6 +74,9 @@ class LaravelPintTask extends AbstractExternalTask
         $arguments = $this->processBuilder->createArgumentsForCommand('pint');
         $arguments->addOptionalArgument('--config=%s', $config['config']);
         $arguments->addOptionalArgument('--preset=%s', $config['preset']);
+        if($config['blade']) {
+            $arguments->addOptionalArgument('--blade');
+        }
 
         if (in_array($config['auto_fix'], [true, $contextName])) {
             return $this->fixRun($context, $arguments, $files);
